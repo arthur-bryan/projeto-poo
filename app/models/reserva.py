@@ -2,19 +2,28 @@ class Reserva:
 	""" Classe que representa as reservas. Utilizada na realização de reservas pelos sócios.
 
 		Attributes:
-			__socio (str): O nome do sócio responsável pela reserva.
-			__sala (str): O número da sala reservada.
-			__data (str): A data da reserva.
-			__horario (str): O horário da reserva.
+			__socio (:obj: 'Socio'): objeto Socio responsável pela reserva
+			__sala (:obj: 'Sala'): objeto Sala que receberá a reserva
+			__data (str): data da reserva
+			__horario (str): horário da reserva
 
 	"""
 
-	def __init__(self):
-		self.__socio = ""
-		self.__sala = ""
-		self.__data = ""
-		self.__horario = ""
+	def __init__(self, socio="", sala="", data="", horario=""):
+		""" Args:
+				socio (:obj: 'Socio'): objeto Socio, dono da reserva
+				sala (:obj: 'Sala'): objeto Sala que irá receber a reserva
+				data (str): data da reserva
+				horario (str): horário da reserva
 
+		"""
+		self.__socio = socio
+		self.__sala = sala
+		self.__data = data
+		self.__horario = horario
+
+	def __str__(self):
+		return f"Reserva da sala {self.__sala} efetuada por {self.__socio} para o dia {self.__data} às {self.__horario}h"
 
 	@property
 	def socio(self):

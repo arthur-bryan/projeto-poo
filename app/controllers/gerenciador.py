@@ -1,15 +1,19 @@
 class Gerenciador:
 	""" Classe driver do projeto. Possui os métodos que realizam as ações principais do programa.
 		Attributes:
-			__socios (:obj: 'list' of :obj: 'Socio'): Lista que armazena os socios registrados.
-			__reservas (:obj: 'list' of :obj: 'Reserva'): Lista que armazena as reservas efetuadas.
+			model_socio (:class: 'Socio'): classe da view utilizada para gerência de socios
+			model_socio (:class: 'Reserva'): classe Socio utilizada para gerência de reservas
+			model_reserva (:class: 'View'): classe Reserva utilizada para exibições no console
+			__socios (:obj: 'list' of :obj: 'Socio'): lista que armazena os socios registrados
+			__reservas (:obj: 'list' of :obj: 'Reserva'): lista que armazena as reservas efetuadas
 	"""
+
 
 	def __init__(self, model_socio, model_reserva, view):
 		""" Args:
-				model_socio (:obj: 'Socio'): classe utilizada pelo gerenciador para criar/alterar sócios.
-				model_reserva (:obj: 'Reserva'): classe utilizada pelo gerenciador para criar/alterar reservas.
-				view: classe utilizada para mostrar mensagens no console.
+				model_socio (:class: 'Socio'): classe utilizada pelo gerenciador para criar/alterar sócios
+				model_reserva (:class: 'Reserva'): classe utilizada pelo gerenciador para criar/alterar reservas
+				view (:class: 'View'): classe utilizada para mostrar mensagens no console
 
 		"""
 		self.model_socio = model_socio
@@ -17,6 +21,7 @@ class Gerenciador:
 		self.view = view
 		self.__socios = []
 		self.__reservas = []
+
 
 	def registrar_socio(self):
 		""" Cria e adiciona o socio à lista de sócios caso o mesmo não esteja registrado
@@ -27,14 +32,14 @@ class Gerenciador:
 
 		"""
 
-		socio = self.model_socio
 		self.view.msg_registro_socio()
+		socio = self.model_socio()
 		socio.nome = input("Nome: ").title()
 		socio.cargo = input("Cargo: ")
 		socio.ramal = input("Ramal: ")
 		if socio.validar_atributos():
-			for socio in self.__socios:
-				if socio.nome == socio.nome:
+			for pessoa in self.__socios:
+				if pessoa.nome == socio.nome:
 					self.view.msg_socio_existe(socio.nome)
 					return False
 			self.__socios.append(socio)
@@ -52,9 +57,9 @@ class Gerenciador:
 				True se a reserva for efetuada com, False caso contrário.
 
 		"""
-		reserva = self.model_reserva
 		self.view.msg_agendar_reserva()
-		reserva.socio = input("Nome do sócio: ")
+		reserva = self.model_reserva()
+		reserva.socio = input("Nome do sócio: ").title()
 		reserva.sala = input("Número da sala: ")
 		reserva.data = input("Data (dd/mm/aaaa): ")
 		reserva.horario = input("Horário (hh:mm): ")
@@ -89,6 +94,13 @@ class Gerenciador:
 		else:
 			nomes_socios = [pessoa.nome for pessoa in self.__socios]
 			return True if socio in nomes_socios else False
+
+	def show_users(self):
+		[print(user) for user in self.__socios]
+
+	def show_reservas(self):
+		[print(reserva) for reserva in self.__reservas]
+
 
 	def menu(self):
 		""" Mostra um menu de opções a serem escolhidas pelo usuário.

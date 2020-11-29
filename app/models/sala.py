@@ -1,17 +1,41 @@
 class Sala:
-	""" Classe que representa a sala de reunião. Utilizada no ato da reserva pelos sócios.
+	""" Classe que representa a sala de reunião. Utilizada no ato da reserva pelos sócios
 
 		Attributes:
-			__numero (:obj: 'int'): O número da sala.
+			__numero (:obj: 'int'): número da sala
+			__vagas (:obj: 'int'): quantidade de vagas da sala
+			__reservas (:obj: 'list' of :obj: 'Reserva'): lista de reservas realizadas para esta sala
 
 	"""
 
-	def __init__(self, numero)
+	def __init__(self, numero, vagas)
 		""" Args:
-				numero (:obj: 'int'): O número da sala.
+				numero (:obj: 'int'): o número da sala
+				vagas (:obj: 'int'): quantidade de vagas da sala
 
 		"""
 		self.__numero = numero
+		self.__vagas = vagas
+		self.__reservas = []
+
+	def __str__(self):
+		return f"Sala {self.__numero}"
+
+	def add_reserva(reserva):
+		""" Adiciona a reserva para a sala caso ainda exista vaga disponível
+
+			Args:
+				reserva (:obj: 'Reserva'): objeto Reserva a ser adicionado para a sala
+
+			Returns:
+				True se a reserva for registrada, False caso contrário
+
+		"""
+		if len(self.__reservas) < self.__vagas:
+			self.__reservas.append(reserva)
+			return True
+		return False
+
 
 	def validar_numero(self):
 		""" Valida o número da sala.
@@ -34,31 +58,5 @@ class Sala:
 	def numero(self, novo_numero):
 		self.__numero = novo_numero
 
-class Sala1(Sala):
-
-	def __init__(self, numero):
-		super().__init__(numero)
-		self.__vagas = 40
-
-
-class Sala2(Sala):
-
-    def __init__(self, numero):
-        super().__init__(numero)
-        self.__vagas = 50
-
-
-class Sala3(Sala):
-
-    def __init__(self, numero):
-        super().__init__(numero)
-        self.__vagas = 55
-
-
-class Sala4(Sala):
-
-    def __init__(self, numero):
-        super().__init__(numero)
-        self.__vagas = 60
 
 
