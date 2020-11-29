@@ -5,7 +5,7 @@ from app.controllers.gerenciador import Gerenciador
 from time import sleep
 
 def main():
-    gerenciador = Gerenciador(Socio(), Reserva(), View())
+    gerenciador = Gerenciador(Socio, Reserva, View)
     while True:
         try:
             funcao = gerenciador.menu()
@@ -17,6 +17,10 @@ def main():
                 gerenciador.registrar_socio()
             elif funcao == 2:
                 gerenciador.criar_reserva()
+            elif funcao == 3:
+                gerenciador.show_users()
+            elif funcao == 4:
+                gerenciador.show_reservas()
             elif funcao == 0:
                 print("\n[-] Saindo...")
                 sleep(1)

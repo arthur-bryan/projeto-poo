@@ -7,10 +7,14 @@ class Socio:
 			__ramal (str): Ramal utilizado pelo sócio.
 
 	"""
-	def __init__(self):
-		self.__nome = ""
-		self.__cargo = ""
-		self.__ramal = ""
+	def __init__(self, nome="", cargo="", ramal=""):
+		self.__nome = nome
+		self.__cargo = cargo
+		self.__ramal = ramal
+
+	def __str__(self):
+		""" :obj: 'str' Retorna a representação do objeto em string. """
+		return f"{self.__nome}"
 
 	@property
 	def nome(self):
