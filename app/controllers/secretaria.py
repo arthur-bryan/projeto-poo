@@ -1,17 +1,19 @@
-class Gerenciador:
+class Secretaria:
 	""" Classe driver do projeto. Possui os métodos que realizam as ações principais do programa.
 		Attributes:
 			model_socio (:class: 'Socio'): classe da view utilizada para gerência de socios
 			model_socio (:class: 'Reserva'): classe Socio utilizada para gerência de reservas
 			model_reserva (:class: 'View'): classe Reserva utilizada para exibições no console
 			__socios (:obj: 'list' of :obj: 'Socio'): lista que armazena os socios registrados
-			__reservas (:obj: 'list' of :obj: 'Reserva'): lista que armazena as reservas efetuadas
+			sala1-4 (:obj: 'Sala'): objetos do tipo Sala com seus respectivos numeros e vagas
+			__salas (:obj: 'list' of :obj: 'Salas'): lista que armazena as salas 
+
 	"""
 
-
-	def __init__(self, model_socio, model_reserva, view):
+	def __init__(self, model_socio, model_sala, model_reserva, view):
 		""" Args:
 				model_socio (:class: 'Socio'): classe utilizada pelo gerenciador para criar/alterar sócios
+				model_sala (:class: 'Sala'): classe utilizada pelo gerenciador para criar as salas
 				model_reserva (:class: 'Reserva'): classe utilizada pelo gerenciador para criar/alterar reservas
 				view (:class: 'View'): classe utilizada para mostrar mensagens no console
 
@@ -20,7 +22,12 @@ class Gerenciador:
 		self.model_reserva = model_reserva
 		self.view = view
 		self.__socios = []
-		self.__reservas = []
+		sala1 = model_sala(numero=1, vagas=50)
+		sala2 = model_sala(numero=2, vagas=55)
+		sala3 = model_sala(numero=3, vagas=60)
+		sala4 = model_sala(numero=4, vagas=70)
+		self.__salas = (sala1, sala2, sala3, sala4)
+
 
 
 	def registrar_socio(self):
@@ -34,7 +41,7 @@ class Gerenciador:
 
 		self.view.msg_registro_socio()
 		socio = self.model_socio()
-		socio.nome = input("Nome: ").title()
+		socio.nome = input("Nome: ").title().strip()
 		socio.cargo = input("Cargo: ")
 		socio.ramal = input("Ramal: ")
 		if socio.validar_atributos():
@@ -57,49 +64,32 @@ class Gerenciador:
 				True se a reserva for efetuada com, False caso contrário.
 
 		"""
+		socios_com_reserva = [socio.nome for socio in self.__socios]
 		self.view.msg_agendar_reserva()
 		reserva = self.model_reserva()
-		reserva.socio = input("Nome do sócio: ").title()
-		reserva.sala = input("Número da sala: ")
+		reserva.socio = input("Nome do sócio: ").title().strip()
+		reserva.sala = int(input("Número da sala: "))
 		reserva.data = input("Data (dd/mm/aaaa): ")
 		reserva.horario = input("Horário (hh:mm): ")
 		if reserva.validar_atributos():
-			if self.checar_disponibilidade(reserva.socio, reserva.sala,
-										   reserva.data, reserva.horario):
-				self.__reservas.append(reserva)
-				self.view.msg_reserva_criada(reserva)
-				return True
-			else:
-				self.view.msg_falha_reserva()
-				return False
+			for sala in self.__salas:
+				if sala.numero == reserva.sala and reserva.socio in socios_com_reserva:
+					sala.add_reserva(reserva)
+					self.view.msg_reserva_criada(reserva)
+					return True
+			self.view.msg_falha_reserva()
 		else:
 			self.view.msg_preencher_campos()
 			self.criar_reserva()
 
-	def checar_disponibilidade(self, socio, sala, data, horario):
-		""" Valida se o sócio pode realizar a reserva da sala na data e hora.
 
-			Returns:
-				True se a reserva estiver disponível, False caso contrário.
-
-		"""
-		if len(self.__reservas) >= 1:
-			nomes_socios = [pessoa.nome for pessoa in self.__socios]
-			socios_com_reserva = [pessoa.socio for pessoa in self.__reservas]
-			for reserva in self.__reservas:
-				if socio in socios_com_reserva or (reserva.data == data and reserva.horario == horario):
-					return False
-			if socio in nomes_socios:
-				return True
-		else:
-			nomes_socios = [pessoa.nome for pessoa in self.__socios]
-			return True if socio in nomes_socios else False
-
-	def show_users(self):
+	def mostrar_socios(self):
 		[print(user) for user in self.__socios]
 
-	def show_reservas(self):
-		[print(reserva) for reserva in self.__reservas]
+	def mostrar_reservas(self):
+		for sala in self.__salas:
+			for reserva in sala.reservas:
+				print(reserva)
 
 
 	def menu(self):
@@ -112,6 +102,8 @@ class Gerenciador:
 		funcao = int(input("""[===== Gerenciamento de Salas  - Morais Coworking =====]\n
 							  \r[1] Registrar sócio
 							  \r[2] Realizar reserva
+							  \r[3] Mostrar sócios
+							  \r[4] Mostrar reservas
 							  \r[0] Sair\n
 							  \r-->  """))
 		return funcao
