@@ -5,12 +5,16 @@ class View:
 		print("\n[===== Registro de Sócio =====]\n")
 
 	@staticmethod
+	def msg_registro_funcionario():
+		print("\n[===== Registro de Funcionário =====]\n")
+
+	@staticmethod
 	def msg_agendar_reserva():
 		print("\n[===== Agendamento de Reserva =====]\n")
 
 	@staticmethod
-	def msg_socio_registrado(nome):
-		print(f"\n[+] O sócio {nome} foi registrado com sucesso!\n")
+	def msg_registrado(nome):
+		print(f"\n[+] {nome} foi registrado com sucesso!\n")
 
 	@staticmethod
 	def msg_socio_existe(nome):
