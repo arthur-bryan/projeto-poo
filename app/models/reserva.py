@@ -9,7 +9,7 @@ class Reserva:
 
 	"""
 
-	def __init__(self, socio="", sala="", data="", horario=""):
+	def __init__(self, dono="", sala="", data="", horario=""):
 		""" Args:
 				socio (:obj: 'Socio'): objeto Socio, dono da reserva
 				sala (:obj: 'Sala'): objeto Sala que irá receber a reserva
@@ -17,22 +17,22 @@ class Reserva:
 				horario (str): horário da reserva
 
 		"""
-		self.__socio = socio
+		self.__dono = dono
 		self.__sala = sala
 		self.__data = data
 		self.__horario = horario
 
 	def __str__(self):
-		return f"Reserva da sala {self.__sala} efetuada por {self.__socio} para o dia {self.__data} às {self.__horario}h"
+		return f"Reserva da sala {self.__sala} efetuada por {self.__dono} para o dia {self.__data} às {self.__horario}h"
 
 	@property
-	def socio(self):
+	def dono(self):
 		""" :obj: 'str': Retorna ou altera o nome do sócio responsável pela reserva. """
-		return self.__socio
+		return self.__dono
 
-	@socio.setter
-	def socio(self, novo_socio):
-		self.__socio = novo_socio
+	@dono.setter
+	def dono(self, novo_dono):
+		self.__dono = novo_dono
 
 	@property
 	def sala(self):
@@ -62,6 +62,6 @@ class Reserva:
 		self.__horario = novo_horario
 
 	def validar_atributos(self):
-		if self.__socio != "" and self.__sala != "" and self.__data != "" and self.__horario != "":
+		if self.__dono != "" and self.__sala != "" and self.__data != "" and self.__horario != "":
 			return True
 		return False

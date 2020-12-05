@@ -19,7 +19,7 @@ class Sala:
 		self.__reservas = []
 
 	def __str__(self):
-		return f"Sala {self.__numero}"
+		return f"Sala: {self.__numero}"
 
 	def add_reserva(self, nova_reserva):
 		""" Adiciona a reserva para a sala caso ainda exista vaga disponível
@@ -41,7 +41,6 @@ class Sala:
 			return True
 		return False
 
-
 	def validar_numero(self):
 		""" Valida o número da sala.
 
@@ -53,7 +52,6 @@ class Sala:
 			return True
 		return False
 
-
 	@property
 	def numero(self):
 		""" :obj: 'int': Retorna ou altera o número da sala. """
@@ -63,6 +61,10 @@ class Sala:
 	def numero(self, novo_numero):
 		self.__numero = novo_numero
 
+	@property
+	def vagas(self):
+		""" :obj: 'int': Retorna ou altera o número da sala. """
+		return self.__vagas
 
 	@property
 	def reservas(self):
