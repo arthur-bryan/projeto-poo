@@ -2,8 +2,8 @@ class Reserva:
 	""" Classe que representa as reservas. Utilizada na realização de reservas pelos sócios.
 
 		Attributes:
-			__socio (:obj: 'Socio'): objeto Socio responsável pela reserva
-			__sala (:obj: 'Sala'): objeto Sala que receberá a reserva
+			__dono (Socio): objeto Socio responsável pela reserva
+			__sala (Sala): objeto Sala que receberá a reserva
 			__data (str): data da reserva
 			__horario (str): horário da reserva
 
@@ -11,10 +11,10 @@ class Reserva:
 
 	def __init__(self, dono="", sala="", data="", horario=""):
 		""" Args:
-				socio (:obj: 'Socio'): objeto Socio, dono da reserva
+				dono (:obj: 'Socio'): objeto Socio, dono da reserva
 				sala (:obj: 'Sala'): objeto Sala que irá receber a reserva
-				data (str): data da reserva
-				horario (str): horário da reserva
+				data (:obj: 'str'): data da reserva
+				horario (:obj: 'str'): horário da reserva
 
 		"""
 		self.__dono = dono
@@ -50,7 +50,7 @@ class Reserva:
 
 	@data.setter
 	def data(self, nova_data):
-		self.__data = nova_data
+		self.__data = nova_data.strip()
 
 	@property
 	def horario(self):
@@ -59,9 +59,16 @@ class Reserva:
 
 	@horario.setter
 	def horario(self, novo_horario):
-		self.__horario = novo_horario
+		self.__horario = novo_horario.strip()
 
 	def validar_atributos(self):
-		if self.__dono != "" and self.__sala != "" and self.__data != "" and self.__horario != "":
-			return True
-		return False
+		""" Valida se os campos dos atributos foram preenchidos.
+
+			Returns:
+				True se os campos foram preenchidos, False caso contrário.
+
+		"""
+		for attribute in self.__dir__():
+			if not attribute.endswith('__') and attribute == "":
+				return False
+		return True
