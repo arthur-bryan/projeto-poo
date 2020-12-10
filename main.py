@@ -1,8 +1,8 @@
-from app.models.funcionario import Funcionario
-from app.models.socio import Socio
+from app.models.pessoas.funcionario import Funcionario
+from app.models.pessoas.socio import Socio
 from app.models.reserva import Reserva
-from app.models.auditorio import Auditorio
-from app.models.sala_reuniao_grupos import SalaReuniaoGrupos
+from app.models.salas.auditorio import Auditorio
+from app.models.salas.sala_reuniao_grupos import SalaReuniaoGrupos
 from app.views.view import View
 from app.controllers.secretaria import Secretaria
 from time import sleep
@@ -40,5 +40,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-

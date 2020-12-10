@@ -21,6 +21,10 @@ class View:
 		print(f"\n[!] O sócio {nome} já está registrado!\n")
 
 	@staticmethod
+	def msg_funcionario_existe(nome):
+		print(f"\n[!] O funcionário {nome} já está registrado!\n")
+
+	@staticmethod
 	def msg_preencher_campos():
 		print("\n[!] Por favor, preencha todos os campos!\n")
 
@@ -33,4 +37,6 @@ class View:
 	def msg_falha_reserva():
 		print("\n[!] Incapaz de realizar esta reserva!\n")
 
-
+	@staticmethod
+	def msg_nao_registrado(nome):
+		print(f"\n[!] {nome} não está registrado(a)!\n")
