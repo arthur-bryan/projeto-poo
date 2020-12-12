@@ -42,12 +42,13 @@ A aplicação simula um sistema de reservas de salas de uma empresa de coworking
 ## Qualidade do código: 9.73/10
 
   ### Verifique você mesmo
-  Fora do diretório do projeto:
+  Fora do diretório do projeto :
   ```sh
-  $ python3.7 -m pip install pylint
+  $ python3.7 -m pip install -r projeto-poo/requirements.txt
   $ pylint projeto-poo
   Your code has been rated at 9.73/10 (previous run: 9.73/10, +0.00)
    ```
+  https://pypi.org/project/pylint/
 
 ## Licença
 
