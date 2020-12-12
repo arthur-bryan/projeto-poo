@@ -1,3 +1,8 @@
+"""
+    ESTE ARQUIVO É UM MÓDULO PERTENCENTE AO PROJETO 'projeto-poo',
+    DISPONÍVEL EM 'https://github.com/arthurbryan/projeto-poo'
+"""
+
 from app.models.pessoas.pessoa import Pessoa
 
 
@@ -13,9 +18,9 @@ class Socio(Pessoa):
 
     def __init__(self, nome="", idade="", sexo="", cargo="", ramal="", setor=""):
         """ Args:
-                cargo (:obj: 'str'): Cargo ocupado pelo sócio.
-                ramal (:obj: 'str'): Ramal utilizado pelo sócio.
-                setor (:obj: 'str'): Setor do qual o sócio participa.
+                cargo (:obj: 'str'): Cargo ocupado pelo sócio
+                ramal (:obj: 'str'): Ramal utilizado pelo sócio
+                setor (:obj: 'str'): Setor do qual o sócio participa
 
         """
         super().__init__(nome, idade, sexo)
@@ -24,12 +29,12 @@ class Socio(Pessoa):
         self.__setor = setor
 
     def __str__(self):
-        """ :obj: 'str' Retorna a representação do objeto em string. """
+        """ :obj: 'str' Retorna a representação do objeto em string """
         return f"Sócio: {self.nome}"
 
     @property
     def cargo(self):
-        """ :obj: 'str': Retorna ou altera o cargo do sócio. """
+        """ :obj: 'str': Retorna ou altera o cargo do sócio """
         return self.__cargo
 
     @cargo.setter
@@ -38,7 +43,7 @@ class Socio(Pessoa):
 
     @property
     def setor(self):
-        """ :obj: 'str': Retorna ou altera o setor do sócio."""
+        """ :obj: 'str': Retorna ou altera o setor do sócio """
         return self.__setor
 
     @setor.setter
@@ -47,7 +52,7 @@ class Socio(Pessoa):
 
     @property
     def ramal(self):
-        """ :obj: 'str': Retorna ou altera o ramal do sócio."""
+        """ :obj: 'str': Retorna ou altera o ramal do sócio """
         return self.__ramal
 
     @ramal.setter
@@ -55,13 +60,13 @@ class Socio(Pessoa):
         self.__ramal = novo_ramal.strip()
 
     def validar_atributos(self):
-        """ Valida se os campos dos atributos foram preenchidos.
+        """ Valida se os campos dos atributos foram preenchidos
 
             Returns:
-                True se os campos foram preenchidos, False caso contrário.
+                True se os campos foram preenchidos, False caso contrário
 
         """
-        if (self.nome == "" or self.idade == "" or self.sexo == "" or self.__cargo == "" or self.__setor == ""
-                or self.__ramal == ""):
+        if (self.nome == "" or self.idade == "" or self.sexo == "" or self.__cargo == "" or
+                self.__setor == "" or self.__ramal == ""):
             return False
         return True
