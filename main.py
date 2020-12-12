@@ -24,12 +24,20 @@ def main():
             elif funcao == 3:
                 secretaria.criar_reserva()
             elif funcao == 4:
-                secretaria.mostrar_socios()
+                secretaria.consulta_reserva_no_dia()
             elif funcao == 5:
-                secretaria.mostrar_funcionarios()
+                secretaria.alterar_dono_reserva()
             elif funcao == 6:
+                secretaria.alterar_horario_reserva()
+            elif funcao == 7:
+                secretaria.mostrar_socios()
+            elif funcao == 8:
+                secretaria.mostrar_funcionarios()
+            elif funcao == 9:
                 secretaria.mostrar_reservas()
-            elif funcao == 0:
+            elif funcao == 10:
+                secretaria.remover_reserva()
+            elif funcao == 11:
                 print("\n[-] Saindo...")
                 sleep(1)
                 exit(0)

@@ -1,5 +1,8 @@
 class View:
 
+	def __init__(self):
+		pass
+
 	@staticmethod
 	def msg_registro_socio():
 		print("\n[===== Registro de Sócio =====]\n")
@@ -40,3 +43,11 @@ class View:
 	@staticmethod
 	def msg_nao_registrado(nome):
 		print(f"\n[!] {nome} não está registrado(a)!\n")
+
+	@staticmethod
+	def msg_tem_reserva(pessoa, data):
+		print(f"\n[+] {pessoa} possui reserva para o dia {data}\n")
+
+	@staticmethod
+	def msg_nao_tem_reserva(pessoa, data):
+		print(f"\n[+] {pessoa} não possui reserva para o dia {data}\n")

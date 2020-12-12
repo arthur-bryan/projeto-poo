@@ -34,7 +34,7 @@ class Sala:
         for reserva_existente in self.__reservas:
             if reserva_existente.data == nova_reserva.data and reserva_existente.horario == nova_reserva.horario:
                 return False
-            if (reserva_existente.socio.nome == nova_reserva.socio.nome and
+            if (reserva_existente.dono.nome == nova_reserva.dono.nome and
                     reserva_existente.data == nova_reserva.data and
                     reserva_existente.horario == nova_reserva.horario):
                 return False
