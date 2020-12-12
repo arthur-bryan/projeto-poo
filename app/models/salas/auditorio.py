@@ -14,7 +14,7 @@ class Auditorio(Sala):
 		self.__projetor_ligado = False
 
 	def __str__(self):
-		return f"Auditório: {self.__numero}"
+		return f"Auditório: {self.numero}"
 
 	def ligar_projetor(self):
 		""" Muda o status do projetor para True """

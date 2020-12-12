@@ -1,3 +1,8 @@
+from app.database import Conexao
+from datetime import datetime
+import os
+
+
 class Secretaria:
     """ Classe driver do projeto. Possui os métodos que realizam as ações principais do programa.
         Attributes:
@@ -23,6 +28,8 @@ class Secretaria:
                 view (:class: 'View'): classe utilizada para mostrar mensagens no console
 
         """
+        diretorio_atual = os.path.join(os.getcwd(), 'app/database.db')
+        self.conexao = Conexao(diretorio_atual)
         self.model_funcionario = model_funcionario
         self.model_socio = model_socio
         self.model_reserva = model_reserva
@@ -102,16 +109,25 @@ class Secretaria:
             reserva.dono = self.objeto_por_nome(reserva.dono)
             reserva.sala = int(input("Número da sala: ").strip())
             reserva.data = input("Data (dd/mm/aaaa): ".strip())
-            reserva.horario = input("Horário (hh:mm): ".strip())
-            if reserva.validar_atributos():
-                reserva.sala = self.validar_numero_sala(reserva.sala)
-                if reserva.sala is not None:
-                    if reserva.sala.add_reserva(reserva):
+            try:
+                datetime.strptime(reserva.data, '%d/%m/%Y')
+                reserva.horario = input("Horário (hh:mm): ".strip())
+                datetime.strptime(reserva.horario, '%H:%M')
+            except ValueError:
+                print("\n[ ! ] Formato inválido!\n")
+                self.criar_reserva()
+            else:
+                if reserva.validar_atributos():
+                    reserva.sala = self.validar_numero_sala(reserva.sala)
+                    if reserva.sala is not None:
+                        self.conexao.inserir_reserva(reserva)
+                        reserva.sala.add_reserva(reserva)
                         self.view.msg_reserva_criada(reserva)
                         return
-                    self.view.msg_falha_reserva()
-            else:
-                self.view.msg_preencher_campos()
+                    else:
+                        self.view.msg_falha_reserva()
+                else:
+                    self.view.msg_preencher_campos()
         else:
             self.view.msg_nao_registrado(reserva.dono)
 
@@ -160,6 +176,72 @@ class Secretaria:
                 return sala
         return None
 
+    def consulta_reserva_no_dia(self):
+        """ Verifica se a pessoa possui reserva na data informada """
+        pessoa = input("Nome do dono: ").title().strip()
+        data = input("Data a ser consultada: ")
+        try:
+            datetime.strptime(data, '%d/%m/%Y')
+        except ValueError:
+            print("[ ! ] Formato inválido!")
+        else:
+            reservas = self.conexao.consultar_reserva(pessoa, data)
+            if reservas:
+                for reserva in reservas:
+                    print(f"Reserva para o dia {reserva[3]} às {reserva[4]}h na sala {reserva[2]}" +
+                          f" realizada por {reserva[1]}.")
+
+    def alterar_dono_reserva(self):
+        nome = input("Nome do dono atual da reserva: ").strip().title()
+        sala = int(input("Número da sala reservada: "))
+        data = input("Data da reserva: ")
+        try:
+            datetime.strptime(data, '%d/%m/%Y')
+            horario = input("Horário da reserva: ")
+            datetime.strptime(horario, '%H:%M')
+            novo_dono = input("Nome do novo dono da reserva: ")
+        except ValueError:
+            print("[ ! ] Formato inválido!")
+            self.alterar_dono_reserva()
+        else:
+            if self.conexao.alterar_nome(novo_dono, nome, sala, data, horario):
+                print("\nAlterado com sucesso!")
+            else:
+                print("\nIncapaz de alterar!")
+
+    def alterar_horario_reserva(self):
+        nome = input("Nome do dono da reserva: ").strip().title()
+        sala = int(input("Número da sala reservada: "))
+        data = input("Data da reserva: ")
+        try:
+            datetime.strptime(data, '%d/%m/%Y')
+            horario = input("Horário atual da reserva: ")
+            datetime.strptime(horario, '%H:%M')
+            novo_horario = input("Novo horário da reserva: ")
+            datetime.strptime(novo_horario, '%H:%M')
+        except ValueError:
+            print("[ ! ] Formato inválido!")
+            self.alterar_horario_reserva()
+        else:
+            if self.conexao.alterar_horario(novo_horario, nome, sala, data, horario):
+                print("\nAlterado com sucesso!")
+            else:
+                print("\nIncapaz de alterar!")
+
+    def remover_reserva(self):
+        nome = input("Nome do dono da reserva: ").strip().title()
+        sala = int(input("Número da sala reservada: "))
+        data = input("Data da reserva: ")
+        try:
+            datetime.strptime(data, '%d/%m/%Y')
+            horario = input("Horário atual da reserva: ")
+            datetime.strptime(horario, '%H:%M')
+        except ValueError:
+            print("[ ! ] Formato inválido!")
+            self.alterar_horario_reserva()
+        else:
+            self.conexao.remover_reserva(nome, sala, data, horario)
+
     def mostrar_socios(self):
         [print(user) for user in self.__socios]
 
@@ -182,9 +264,13 @@ class Secretaria:
                                   \r[1] Registrar sócio
                                   \r[2] Registrar funcionário
                                   \r[3] Realizar reserva
-                                  \r[4] Mostrar sócios
-                                  \r[5] Mostrar funcionários
-                                  \r[6] Mostrar reservas
-                                  \r[0] Sair\n
+                                  \r[4] Consultar reserva no dia
+                                  \r[5] Alterar dono da reserva
+                                  \r[6] Alterar hora da reserva
+                                  \r[7] Mostrar sócios
+                                  \r[8] Mostrar funcionários
+                                  \r[9] Mostrar reservas
+                                  \r[10] Remover reserva
+                                  \r[11] Sair\n
                                   \r-->  """))
         return funcao
