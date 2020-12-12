@@ -1,3 +1,8 @@
+"""
+	ESTE ARQUIVO É UM MÓDULO PERTENCENTE AO PROJETO 'projeto-poo',
+	DISPONÍVEL EM 'https://github.com/arthurbryan/projeto-poo'
+"""
+
 from app.models.salas.sala import Sala
 
 
@@ -13,7 +18,6 @@ class SalaReuniaoGrupos(Sala):
     def __init__(self, numero, vagas, cargo_grupo):
         """ Args:
             cargo_grupo (:obj: 'str'): cargo permitido a realizar reservas na sala
-
         """
         super().__init__(numero, vagas)
         self.__cargo_grupo = cargo_grupo
@@ -27,14 +31,14 @@ class SalaReuniaoGrupos(Sala):
 
             Returns:
                 True se a reserva for registrada, False caso contrário
-
         """
         for reserva_existente in self.reservas:
-            if reserva_existente.data == nova_reserva.data and reserva_existente.horario == nova_reserva.horario:
+            if (reserva_existente.data == nova_reserva.data
+                    and reserva_existente.horario == nova_reserva.horario):
                 return False
-            if (reserva_existente.dono.nome == nova_reserva.dono.nome and
-                    reserva_existente.data == nova_reserva.data and
-                    reserva_existente.horario == nova_reserva.horario):
+            if (reserva_existente.dono.nome == nova_reserva.dono.nome
+                    and reserva_existente.data == nova_reserva.data
+                    and reserva_existente.horario == nova_reserva.horario):
                 return False
         if len(self.reservas) < self.vagas:
             if self.validar_grupo(nova_reserva):
@@ -47,7 +51,8 @@ class SalaReuniaoGrupos(Sala):
                 reserva (:obj: 'Reserva'): objeto da classe reserva a ser validado
 
             Returns:
-                True caso o cargo do dono da reserva corresponda ao cargo permitido na sala, False caso contrário
-
+                True caso o cargo do dono da reserva corresponda ao da sala, False caso contrário
         """
-        return True if reserva.dono.cargo.upper() == self.__cargo_grupo else False
+        if reserva.dono.cargo.upper() == self.__cargo_grupo:
+            return True
+        return False

@@ -1,21 +1,27 @@
+"""
+    ESTE ARQUIVO É UM MÓDULO PERTENCENTE AO PROJETO 'projeto-poo',
+    DISPONÍVEL EM 'https://github.com/arthurbryan/projeto-poo'
+"""
+
 from app.models.pessoas.pessoa import Pessoa
 
 
 class Funcionario(Pessoa):
-    """ Classe que representa o funcionário. Utilizada no cadastro de pessoas e realização de reservas
+    """ Classe que representa o funcionário. Utilizada no cadastro de pessoas e realização de
+        reservas
 
         Attributes:
-            __cargo (str): cargo ocupado pelo funcionário
+            __cargo (str): Cargo ocupado pelo funcionário
             __numero_id (str): ID do funcionário
-            __salario (float): salário do funcionário
+            __salario (float): Salário do funcionário
 
     """
 
     def __init__(self, nome="", idade="", sexo="", cargo="", numero_id="", salario=""):
         """ Args:
-                cargo (:obj: 'str'): cargo ocupado pelo funcionário
+                cargo (:obj: 'str'): Cargo ocupado pelo funcionário
                 numero_id (:obj: 'str'): ID do funcionário
-                salario (:obj: 'float'): salário do funcionário
+                salario (:obj: 'float'): Salário do funcionário
         """
         super().__init__(nome, idade, sexo)
         self.__cargo = cargo
@@ -60,7 +66,7 @@ class Funcionario(Pessoa):
                 True se os campos foram preenchidos, False caso contrário.
 
         """
-        if (self.nome == "" or self.idade == "" or self.sexo == "" or self.__cargo == "" or self.__numero_id == ""
-                or self.__salario == ""):
+        if (self.nome == "" or self.idade == "" or self.sexo == "" or self.__cargo == ""
+                or self.__numero_id == "" or self.__salario == ""):
             return False
         return True

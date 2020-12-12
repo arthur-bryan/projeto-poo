@@ -1,3 +1,9 @@
+"""
+    ESTE ARQUIVO É UM MÓDULO PERTENCENTE AO PROJETO 'projeto-poo',
+    DISPONÍVEL EM 'https://github.com/arthurbryan/projeto-poo'
+"""
+
+
 class Sala:
     """ Classe que representa a sala de reunião. Utilizada no ato da reserva pelos sócios
 
@@ -32,11 +38,12 @@ class Sala:
 
         """
         for reserva_existente in self.__reservas:
-            if reserva_existente.data == nova_reserva.data and reserva_existente.horario == nova_reserva.horario:
-                return False
-            if (reserva_existente.dono.nome == nova_reserva.dono.nome and
-                    reserva_existente.data == nova_reserva.data and
+            if (reserva_existente.data == nova_reserva.data and
                     reserva_existente.horario == nova_reserva.horario):
+                return False
+            if (reserva_existente.dono.nome == nova_reserva.dono.nome
+                    and reserva_existente.data == nova_reserva.data
+                    and reserva_existente.horario == nova_reserva.horario):
                 return False
         if len(self.__reservas) < self.__vagas:
             self.__reservas.append(nova_reserva)
@@ -59,5 +66,6 @@ class Sala:
 
     @property
     def reservas(self):
-        """ :obj: 'list' of :obj: 'Reserva': retorna uma lista com as reservas realizadas para esta sala """
+        """ :obj: 'list' of :obj: 'Reserva': Retorna uma lista com as reservas realizadas para
+            esta sala """
         return self.__reservas
