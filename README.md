@@ -24,18 +24,22 @@ A aplicação simula um sistema de reservas de salas de uma empresa de coworking
 
 ## Uso
 
-  Clonar o repositório do projeto e inicie o programa
+  Clonar o repositório do projeto, criar o banco de dados (caso não exista) e iniciar o programa
 
   ```sh
   $ git clone https://github.com/arthur-bryan/projeto-poo
-  $ cd projeto-poo
+  $ cd projeto-poo/app/models
+  $ python3.7 criar_banco.py
+  $ cd ../..
   $ python3.7 main.py
   ```
-  ou baixar via wget e iniciar
+  ou baixar via wget, criar o banco de dados e iniciar
   ```sh
   $ wget https://github.com/arthur-bryan/projeto-poo/archive/main.zip
   $ unzip main.zip
-  $ cd projeto-poo-main
+  $ cd projeto-poo-main/app/models
+  $ python3.7 criar_banco.py
+  $ cd ../..
   $ python3.7 main.py
   ```
 
