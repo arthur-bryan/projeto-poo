@@ -25,6 +25,7 @@ class Sala:
         self.__reservas = []
 
     def __str__(self):
+        """ Representação em forma de string da Sala"""
         return f"Sala: {self.__numero}"
 
     def add_reserva(self, nova_reserva):
