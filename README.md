@@ -1,4 +1,3 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5ef96a2d875146d09ae21fbbdcfe75fd)](https://app.codacy.com/gh/arthur-bryan/projeto-poo?utm_source=github.com&utm_medium=referral&utm_content=arthur-bryan/projeto-poo&utm_campaign=Badge_Grade_Settings)
 [![Status Badge](https://img.shields.io/badge/status-development-3066be)](https://github.com/arthur-bryan/projeto-poo)
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/arthur-bryan/projeto-poo)](https://github.com/arthur-bryan/projeto-poo/tags)
 [![Python Badge](https://img.shields.io/badge/-Python%203.7-3066be?logo=Python&logoColor=white&link=https://www.python.org/)](https://www.python.org/)
